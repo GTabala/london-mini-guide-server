@@ -20,7 +20,7 @@ app.get("/", function (request, response) {
 });
 app.get("/pharmcies", function (request, response) {
 
-  response.json(stratford.filter(note => note.pharmcies));
+  response.json(stratford.pharmcies);
 });
 app.get("/colleges", function (request, response) {
   response.send("returns colleges list for stratford");
