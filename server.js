@@ -19,7 +19,8 @@ app.get("/", function (request, response) {
   response.send("You are welcome!");
 });
 app.get("/pharmcies", function (request, response) {
-  response.send("retruns an array of pharmacies in a specific area");
+
+  response.json(stratford.filter(note => note.pharmcies));
 });
 app.get("/colleges", function (request, response) {
   response.send("returns colleges list for stratford");
