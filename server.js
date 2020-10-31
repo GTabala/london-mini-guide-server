@@ -15,6 +15,9 @@ const stratford = require("./data/Stratford.json");
 //   /quotes            - Should return all quotes (json)
 //   /quotes/random     - Should return ONE quote (json)
 
+app.get("/", function (request, response) {
+  response.send("You are welcome!");
+});
 app.get("/pharmcies", function (request, response) {
   response.send("retruns an array of pharmacies in a specific area");
 });
