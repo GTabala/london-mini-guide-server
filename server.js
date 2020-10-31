@@ -5,60 +5,26 @@
 const express = require("express");
 const app = express();
 
-//load the quotes JSON
+//load the cities JSON
 const harrow = require("./data/Harrow.json");
 const heathrow = require("./data/Heathrow.json");
 const stratford = require("./data/Stratford.json");
 
-// Now register handlers for some routes:
-//   /                  - Return some helpful welcome info (text)
-//   /quotes            - Should return all quotes (json)
-//   /quotes/random     - Should return ONE quote (json)
+
+const cities = {"stratford": stratford,"harrow": harrow, "heathrow": heathrow};
 
 app.get("/", function (request, response) {
   response.send("You are welcome!");
 });
-app.get("/pharmcies", function (request, response) {
-
-  response.json(stratford.pharmcies);
-});
-app.get("/colleges", function (request, response) {
-  response.send("returns colleges list for stratford");
-});
-app.get("/doctors", function (request, response) {
-  response.send("returns doctors list for stratford");
-});
-app.get("/hospitals", function (request, response) {
-  response.send("returns hospitals list for stratford");
+app.get("/:city/:category", function (request, response) {
+  const cityName = request.params.city;
+  const category = request.params.category;
+  
+   response.json((cities[cityName.toLocaleLowerCase()])[category]);
 });
 
-
-
-
-
-// app.get("/search", function(request, response) {
-//   let term = request.query.term;
-//   let quoteHas = request.query.quotehas;  
-//   let authorHas = request.query.authorhas;  
-//   (quoteHas && authorHas) ? response.json(quotes.filter(item => item.quote.toLowerCase().includes(quoteHas.toLowerCase()) && 
-//   item.author.toLowerCase().includes(authorHas.toLowerCase()))):
-//   quoteHas ?  response.json(quotes.filter(item => item.quote.toLowerCase().includes(quoteHas.toLowerCase()))):  
-//   authorHas ? response.json(quotes.filter(item => item.author.toLowerCase().includes(authorHas.toLowerCase()))):
-//   response.json(quotes.filter(item => item.quote.toLowerCase().includes(term.toLowerCase()) || 
-//   item.author.toLowerCase().includes(term.toLowerCase())));
-// });
-
-// //...END OF YOUR CODE
-
-// //You can use this function to pick one element at random from a given array
-// //example: pickFromArray([1,2,3,4]), or
-// //example: pickFromArray(myContactsArray)
-// //
-// function pickFromArray(arr) {
-//   return arr[Math.floor(Math.random() * arr.length)];
-// }
 const listener = app.listen(process.env.PORT, function () {
   console.log("Your app is listening on port " + listener.address().port);
 });
 //Start our server so that it listens for HTTP requests!
-//app.listen(3000, () => console.log("Server is listening on port 3000. !"));
+// app.listen(3000, () => console.log("Server is listening on port 3000. !"));
