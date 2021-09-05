@@ -3,7 +3,14 @@
 
 //load the 'express' module which makes writing webservers easy
 const express = require("express");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+
 const app = express();
+
+app.use(cors());
+app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser());
 
 //load the cities JSON
 const harrow = require("./data/Harrow.json");
@@ -22,6 +29,15 @@ app.get("/:city/:category", function (request, response) {
   
    response.json((cities[cityName.toLocaleLowerCase()])[category]);
 });
+
+app.post("/cities", function (request, response){
+  const city = request.body;
+  console.log(city);
+  response.json(city);
+}
+
+);
+
 
 const listener = app.listen(process.env.PORT, function () {
   console.log("Your app is listening on port " + listener.address().port);
